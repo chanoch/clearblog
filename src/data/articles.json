@@ -1,0 +1,9 @@
+{
+    "articles": [
+        {"title": "Title1", "leader": "First paragraph", "article": [
+            "Paragraph 1",
+            "Paragraph 2",
+            "Paragraph 3"
+        ]}
+    ]
+}

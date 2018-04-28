@@ -1,0 +1,18 @@
+remove and add dist/ folder
+change mount path to be configurable
+
+fix source map
+
+css
+- article
+- article_body
+- article_title (+h3)
+
+convert system to automated
+ - menu should be automatic
+ - components can be parsed or json config
+ - mount path (in menu, links, express)
+
+ shared menu data service
+
+ test automation
