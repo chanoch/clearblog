@@ -1,18 +1,37 @@
-remove and add dist/ folder
-change mount path to be configurable
-
-fix source map
-
-css
-- article
-- article_body
-- article_title (+h3)
+Turn into a class so configuration can be injected
 
 convert system to automated
  - menu should be automatic
  - components can be parsed or json config
  - mount path (in menu, links, express)
 
- shared menu data service
+test automation
 
- test automation
+shared menu data service
+
+remove and add dist/ folder
+change mount path to be configurable
+
+fix source map
+
+
+
+Dependencies
+Notes
+Story IDs
+
+Having new articles list a markdown cheatsheet
+
+Support markdown rendering in articles
+
+Load articles from a standard folder
+
+rematch? 
+
+#DONE
+Style article summary list
+css
+- article
+- article_body
+- article_title (+h3)
+

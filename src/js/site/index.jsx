@@ -1,9 +1,18 @@
-import routes from './articles/routes';
+/**
+ * TODO do we need to rework this router to support menu ids?
+ */
+import React from 'react';
+import {SimpleReactRouter} from '@chanoch/simple-react-router';
 
 import {ListArticlesMiddleware} from './articles/redux/ListArticles';
 import {rootReducer} from './articles/RootReducer';
 
-import {SimpleReactRouter} from '@chanoch/simple-react-router';
+import ArticlesPage from './articles/ArticlesPage';
+
+const routes = [
+    { path: '/clearblog/', action: (store) => <ArticlesPage store={store} />},
+    { path: '/clearblog/list', action: (store) => <ArticlesPage  store={store}/> },
+];
 
 const initialState = {
     articles: [], // the list of articles/blog entries
@@ -15,10 +24,10 @@ const initialState = {
  * any mutations required as part of the various actions. 
  */
 const router = new SimpleReactRouter(
+    routes,
     rootReducer, 
     initialState, 
-    [ListArticlesMiddleware()],
-    routes); 
+    [ListArticlesMiddleware()]); 
 
 /**
  * Fetch the list of blog articles
