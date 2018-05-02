@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import './article.css';
+
 export default class Article extends Component {
     constructor(props) {
         super(props);
@@ -12,8 +14,8 @@ export default class Article extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <div className="article_body">
-                                <h5 className="article_title" data-hover={article.title} >{article.title}</h5>
+                            <div className="section_article__item">
+                                <h4 className="article_title" data-hover={article.title} >{article.title}</h4>
                                 <ul>
                                 </ul>
                             </div>
@@ -43,8 +45,15 @@ export class ArticleSummary extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <div className="article_body">
-                                <h3 className="article_title" data-hover={article.title} onClick={this.clicked}>{article.title}</h3>
+                            <div className="section_article__item">
+                                <ul className="article_info">
+                                    <li><a href="">12th May 2018</a></li>
+                                    <li>/</li>
+                                    <li><a href="">TOPIC</a></li>
+                                </ul>
+                                <a className="article_title">
+                                    <h4 data-hover={article.title} onClick={this.clicked}>{article.title}</h4>
+                                </a>
                                 <Leader leader={article.leader} />
                             </div>
                         </div>
