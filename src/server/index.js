@@ -13,6 +13,9 @@ var Promise = require('bluebird');
  */
 var port = normalizePort(process.env.PORT || '3005');
 
+var mountpath = system.env.CLEARBLOG_MOUNTPATH;
+mountpath = mountpath?mountpath:"/";
+
 var app = require('./app');
 app.set('port', port);
 

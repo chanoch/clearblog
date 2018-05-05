@@ -16,6 +16,7 @@
   "dependencies": {
     "@chanoch/chanoch-com-components": "0.1.4",
     "@chanoch/simple-react-router": "^0.2.1",
+    "@chanoch/clearblog-components": "0.0.1",
     "async": "^2.6.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",

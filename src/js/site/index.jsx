@@ -7,12 +7,25 @@ import {SimpleReactRouter} from '@chanoch/simple-react-router';
 import {ListArticlesMiddleware} from './articles/redux/ListArticles';
 import {rootReducer} from './articles/RootReducer';
 
-import ArticlesPage from './articles/ArticlesPage';
+.import ArticlesPage from './articles/ArticlesPage';
 
-const routes = [
-    { path: '/clearblog/', action: (store) => <ArticlesPage store={store} />},
-    { path: '/clearblog/list', action: (store) => <ArticlesPage  store={store}/> },
-];
+import getRoutes from './routes';
+
+export class Clearblog {
+    constructor(mountpath) {
+        const routes = getRoutes(mountpath);
+/*
+        need to update the express mountpath 
+        need to document the ethos of the concept
+        what if people want to mount it into the root? 
+        how to manage top level navigation to non-blog parts? 
+        extract it as an independent component!
+        then use it in a vanilla microsite
+        need to resolve css - any others?
+*/
+        implement with no styling!
+    }
+}
 
 const initialState = {
     articles: [], // the list of articles/blog entries
