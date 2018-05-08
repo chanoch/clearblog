@@ -1,11 +1,19 @@
+#CLEARBLOG TODO
+- add view article
+- add images
+- wysiwyg
+- externalise css to a service
+- restyling
+- test automation
+
 Turn into a class so configuration can be injected
 
 convert system to automated
- - menu should be automatic
  - components can be parsed or json config
  - mount path (in menu, links, express)
 
-test automation
+
+externalise index.htm into express so independent of mount point
 
 shared menu data service
 
