@@ -13,7 +13,18 @@ var Promise = require('bluebird');
  */
 var port = normalizePort(process.env.PORT || '3005');
 
-var app = require('./app');
+var mountpath = process.env.CLEARBLOG_MOUNTPATH;
+mountpath=mountpath&&mountpath.startsWith("/")?mountpath.substring(1):mountpath;
+mountpath = mountpath?`/${mountpath}`:"";
+console.log(`
+-- Please wait...
+-- Starting clearblog.
+-- Reading mountpath from process.env.CLEARBLOG_MOUNTPATH
+-- Mounting clearblog to \"${mountpath}\"`);
+
+var webapp = require('./app');
+var app = (new webapp()).getApp(mountpath);
+
 app.set('port', port);
 
 /**

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Layout from './Layout';
-import Declaration from '../components/Declaration';
+import {Layout, Declaration} from '@chanoch/chanoch-com-components';
 
 export default class Http404Page extends React.PureComponent {
     constructor(props) {

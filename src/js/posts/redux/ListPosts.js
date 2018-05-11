@@ -10,12 +10,11 @@ import {history} from '@chanoch/simple-react-router';
  * Async mutating middleware that loads the full list of posts and then dispatches an action to render
  * them 
  */
-.export function ListPostsMiddleware() {
+export function ListPostsMiddleware() {
     return store => dispatch => action => {
 
         dispatch(action);
         if(action.type===LIST_POSTS) {
-            var arcticleService = new PostService();
             PostService.fetchPosts(Posts => dispatch(receivePosts(Posts)));
             history.push('${context}/list');
         }
@@ -46,7 +45,6 @@ export function receivePosts(posts) {
 }
 
 export function receivePostsReducer(state, action) {
-    console.log("Reducing posts");
     return {
         ...state,
         action: RECEIVE_POSTS,

@@ -14,14 +14,14 @@ export default class PostService {
                 "title": "My post",
                 "leader": [
                     "My leader text.",
-                    "Incomplete teaser..."
+                    "Incomplete teaser"
                 ]
             }, {
                 "key":"20180427-2", 
                 'title': 'My second post',
                 "leader": [
                     "Second post's leader text",
-                    "second line..."
+                    "second line"
                 ]
             }
         ]);
