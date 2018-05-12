@@ -1,10 +1,19 @@
 #CLEARBLOG TODO
+- proptypes
+- unit testing
+- invariant
 - add view article
+- dates
+- topics
+- add support for code blocks
+- externalise css to a service
+externalise index.htm into express so independent of mount point
+fix source map
+- test automation
+
 - add images
 - wysiwyg
-- externalise css to a service
 - restyling
-- test automation
 - externalise title in ListPostsPage and ViewPostPage
 - externalise navigation handlers (viewpost in ListPostsPage)
 - support paging
@@ -18,15 +27,10 @@ convert system to automated
  - components can be parsed or json config
  - mount path (in menu, links, express)
 
-externalise index.htm into express so independent of mount point
 
 shared menu data service
 
 remove and add dist/ folder
-change mount path to be configurable
-
-fix source map
-
 
 
 Dependencies
@@ -53,3 +57,4 @@ css
 - article_body
 - article_title (+h3)
 remove first forward slash if exists to server
+change mount path to be configurable
