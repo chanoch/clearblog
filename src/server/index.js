@@ -15,7 +15,7 @@ var port = normalizePort(process.env.PORT || '3005');
 
 var mountpath = process.env.CLEARBLOG_MOUNTPATH;
 mountpath=mountpath&&mountpath.startsWith("/")?mountpath.substring(1):mountpath;
-mountpath = mountpath?`/${mountpath}`:"";
+mountpath = mountpath?`/${mountpath}`:"/clearblog";
 console.log(`
 -- Please wait...
 -- Starting clearblog.
