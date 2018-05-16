@@ -17,7 +17,6 @@ var mountpath = process.env.CLEARBLOG_MOUNTPATH;
 mountpath=mountpath&&mountpath.startsWith("/")?mountpath.substring(1):mountpath;
 mountpath = mountpath?`/${mountpath}`:"/clearblog";
 console.log(`
--- Please wait...
 -- Starting clearblog.
 -- Reading mountpath from process.env.CLEARBLOG_MOUNTPATH
 -- Mounting clearblog to \"${mountpath}\"`);

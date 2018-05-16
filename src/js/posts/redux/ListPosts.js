@@ -15,8 +15,8 @@ export function ListPostsMiddleware() {
 
         dispatch(action);
         if(action.type===LIST_POSTS) {
-            PostService.fetchPosts(Posts => dispatch(receivePosts(Posts)));
-            history.push('${context}/list');
+            PostService.fetchPosts(posts => dispatch(receivePosts(posts)));
+            history.push(`${context}/list`);
         }
     }
 }

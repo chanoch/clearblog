@@ -25,6 +25,7 @@ function getPlugins() {
 
     if(isProd) {
         plugins.push(new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
             uglifyOptions: {
                 mangle: false
             }
@@ -58,7 +59,7 @@ function getPlugins() {
 module.exports = {
     watch: true,
     entry: {
-        vendor: ['react', 'react-dom', 'axios'],
+        vendor: ['axios'],
         index: './src/js/index.jsx',
     },
     output: {
@@ -72,6 +73,10 @@ module.exports = {
             { test: /\.js.?$/, loader: 'babel-loader', exclude: /node_modules/ },
             { test: /\.json$/, loader: 'json-loader' }
         ],
+    },
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
     },
     plugins: getPlugins()
 }

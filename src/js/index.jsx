@@ -1,10 +1,11 @@
 /**
- * TODO do we need to rework this router to support menu ids?
+ * TODO do I need to rework this router to support menu ids?
  */
 import React from 'react';
 import {SimpleReactRouter} from '@chanoch/simple-react-router';
 
 import {ListPostsMiddleware} from './posts/redux/ListPosts';
+import {ViewPostMiddleware} from './posts/redux/ViewPost';
 import {rootReducer} from './posts/RootReducer';
 
 import getRoutes from './routes';
@@ -36,7 +37,7 @@ const router = new SimpleReactRouter(
     routes,
     rootReducer, 
     initialState, 
-    [ListPostsMiddleware()]); 
+    [ListPostsMiddleware(), ViewPostMiddleware()]); 
 
 /**
  * Fetch the list of blog posts

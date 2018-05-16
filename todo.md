@@ -1,15 +1,15 @@
 #CLEARBLOG TODO
-- proptypes
+- exclude react from bundle
+- add view article
 - unit testing
 - invariant
-- add view article
+- externalise css to a service
 - dates
 - topics
 - add support for code blocks
-- externalise css to a service
 externalise index.htm into express so independent of mount point
 fix source map
-- test automation
+- test automation (travis?)
 
 - add images
 - wysiwyg
@@ -58,3 +58,5 @@ css
 - article_title (+h3)
 remove first forward slash if exists to server
 change mount path to be configurable
+- proptypes
+- only deploy mins to npm
