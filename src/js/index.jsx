@@ -27,20 +27,22 @@ const initialState = {
     posts: [], // the list of blog posts
     post: {
         key: undefined,
-        post: [] // TODO - change to content or something
+        content: ['']
     }, // the selected post to read in detail
 };
 
 var config = {
     initialState,
     actionConfigs: [{
+        name: 'ListPosts',
         path: "/",
         driver: ListPostsAction, 
         page: (store, history) => <ListPostsPage store={store} history={history}/>,
     },{
         driver: ReceivePostsAction
     },{
-        path: "/post/:post_id",
+        name: 'ViewPost',
+        path: "/post/:post_key/:post_title",
         driver: ViewPostAction,
         page: (store, history) => <ViewPostPage store={store} history={history}/>
     },{

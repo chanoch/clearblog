@@ -3,7 +3,7 @@ import ReceivePosts from './ReceivePostsAction';
 
 /** 
  */
-export default function ListPosts(actionUri) {
+export default function ListPosts(uri) {
     const LIST_POSTS = "LIST_POSTS";
     
     const actionCreator = function() {
@@ -11,8 +11,6 @@ export default function ListPosts(actionUri) {
             type: LIST_POSTS,
         }        
     };
-
-    const uri = actionUri;
 
     const loadPosts = function(dispatch) {
         (new PostService()).fetchPosts(posts => {

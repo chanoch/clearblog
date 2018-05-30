@@ -1,10 +1,9 @@
 #CLEARBLOG TODO 
-- externalise URL creation for viewPost
-- check todos
-- add in article title to URL
-- check no js version
+- add link to link href
+
 - add post metadata
-- change post to content or similar
+- check todos
+- check no js version
 - prev next buttons
 - back navigation?
 - auto bump release versions
@@ -83,3 +82,6 @@ change mount path to be configurable
 - only deploy mins to npm
 - exclude react from bundle
 - add view article
+- add in article title to URL
+- change post to content or similar
+- externalise URL creation for viewPost

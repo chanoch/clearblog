@@ -18,15 +18,23 @@ export default function ViewPostAction() {
             return store => dispatch => action => {
                 dispatch(action);
                 if(action.type===VIEW_POST) {
-                    (new PostService()).fetchPost(action.postKey, 
-                        post => (new ReceivePostAction()).dispatchAction(dispatch, {post}));
+                    PostService().fetchPost(
+                        action.postKey, 
+                        post => ReceivePostAction().dispatchAction(dispatch, {post})
+                    );
                 }
             }    
         },
 
         dispatchAction(dispatch, params) {
-            const postKey = params.post_id;
+            const postKey = params.post_key;
             dispatch(actionCreator(postKey));
         },
+
+        uri(base, postKey, postTitle) {
+            return base
+                .replace(':post_key', postKey)
+                .replace(':post_title', postTitle);
+        }
     }
 }

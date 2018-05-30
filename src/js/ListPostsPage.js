@@ -20,8 +20,9 @@ class ListPostsPage extends React.Component {
         this.viewPost = this.viewPost.bind(this);
     }
 
-    viewPost(postKey) {
-        this.history.push(`/clearblog/post/${postKey}`);
+    viewPost(postKey, postTitle) {
+        const base = this.props.viewPostBase;
+        this.history.push(ViewPostAction().uri(base, postKey, postTitle));
     }
 
     render() {
@@ -45,7 +46,8 @@ class ListPostsPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        posts: state.posts
+        posts: state.posts,
+        viewPostBase: state.routes.ViewPost
     }
 };
 

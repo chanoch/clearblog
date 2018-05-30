@@ -4963,7 +4963,7 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
           value: function render() {
             var post = this.props.post;
 
-            return _react2.default.createElement('section', { className: 'section post' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-12' }, _react2.default.createElement('div', { className: 'section_post__item' }, _react2.default.createElement(PostInfo, { content: post.post }), _react2.default.createElement('div', { className: 'post_title' }, _react2.default.createElement('h4', { 'data-hover': post.title }, post.title)), post.post && post.post.map(function (line, index) {
+            return _react2.default.createElement('section', { className: 'section post' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-12' }, _react2.default.createElement('div', { className: 'section_post__item' }, _react2.default.createElement(PostInfo, { content: post.content }), _react2.default.createElement('div', { className: 'post_title' }, _react2.default.createElement('h4', { 'data-hover': post.title }, post.title)), post.content && post.content.map(function (line, index) {
               return _react2.default.createElement('p', { key: index }, line);
             }))))));
           }
@@ -4972,7 +4972,11 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
       }(_react.Component);
 
       Post.propTypes = {
-        post: _propTypes2.default.object.isRequired
+        post: _propTypes2.default.shape({
+          key: _propTypes2.default.string,
+          title: _propTypes2.default.string,
+          content: _propTypes2.default.array
+        }).isRequired
       };
 
       var PostSummary = exports.PostSummary = function (_Component2) {
@@ -4991,14 +4995,16 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
           key: 'clicked',
           value: function clicked(e) {
             e.preventDefault();
-            this.props.handleClick(this.props.post.key);
+            var post = this.props.post;
+
+            this.props.handleClick(post.key, post.uri_title);
           }
         }, {
           key: 'render',
           value: function render() {
             var post = this.props.post;
 
-            return _react2.default.createElement('section', { className: 'section post' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-12' }, _react2.default.createElement('div', { className: 'section_post__item' }, _react2.default.createElement(PostInfo, { content: post.post }), _react2.default.createElement('a', { className: 'post_title' }, _react2.default.createElement('h4', { 'data-hover': post.title, onClick: this.clicked }, post.title)), _react2.default.createElement(Leader, { leader: post.leader, postKey: post.key, handleClick: this.clicked }), _react2.default.createElement(_chanochComComponents.Divider, null))))));
+            return _react2.default.createElement('section', { className: 'section post' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-12' }, _react2.default.createElement('div', { className: 'section_post__item' }, _react2.default.createElement(PostInfo, { content: post.leader }), _react2.default.createElement('a', { className: 'post_title' }, _react2.default.createElement('h4', { 'data-hover': post.title, onClick: this.clicked }, post.title)), _react2.default.createElement(Leader, { leader: post.leader, postKey: post.key, handleClick: this.clicked }), _react2.default.createElement(_chanochComComponents.Divider, null))))));
           }
         }]);
         return PostSummary;
@@ -9015,8 +9021,8 @@ function ViewPostAction() {
                     return function (action) {
                         dispatch(action);
                         if (action.type === VIEW_POST) {
-                            new _PostService2.default().fetchPost(action.postKey, function (post) {
-                                return new _ReceivePostAction2.default().dispatchAction(dispatch, { post: post });
+                            (0, _PostService2.default)().fetchPost(action.postKey, function (post) {
+                                return (0, _ReceivePostAction2.default)().dispatchAction(dispatch, { post: post });
                             });
                         }
                     };
@@ -9024,8 +9030,11 @@ function ViewPostAction() {
             };
         },
         dispatchAction: function dispatchAction(dispatch, params) {
-            var postKey = params.post_id;
+            var postKey = params.post_key;
             dispatch(actionCreator(postKey));
+        },
+        uri: function uri(base, postKey, postTitle) {
+            return base.replace(':post_key', postKey).replace(':post_title', postTitle);
         }
     };
 }
@@ -9040,68 +9049,48 @@ function ViewPostAction() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _classCallCheck2 = __webpack_require__(53);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(54);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+exports.default = PostService;
 /**
  * Dummy service which statically returns an array of blog posts (aka posts)
  */
-var PostService = function () {
-    function PostService() {
-        (0, _classCallCheck3.default)(this, PostService);
-
-        this.posts = [{
+function PostService() {
+    return {
+        posts: [{
             "key": "20180427-1",
             "title": "My post",
+            "uri_title": "my-post",
             "leader": ["My leader text.", "Incomplete teaser"],
-            "post": ["My leader text.", "The second paragraph.", "Third paragraph"]
+            "content": ["My leader text.", "The second paragraph.", "Third paragraph"]
         }, {
             "key": "20180427-2",
             'title': 'My second post',
+            'uri_title': 'my-second-post',
             "leader": ["Second post's leader text", "second line"],
-            "post": ["Second post's leader text", "second line", "Third line."]
-        }];
-    }
+            "content": ["Second post's leader text", "second line", "Third line."]
+        }],
 
-    /**
-     *  fetchPosts call the callback function with an array of posts
-     * 
-     * @param {*} next - callback which takes an array of posts 
-     */
-
-
-    (0, _createClass3.default)(PostService, [{
-        key: "fetchPosts",
-        value: function fetchPosts(next) {
+        /**
+         *  fetchPosts call the callback function with an array of posts
+         * 
+         * @param {*} next - callback which takes an array of posts 
+         */
+        fetchPosts: function fetchPosts(next) {
             return next(this.posts);
-        }
+        },
+
 
         /**
          * 
          * @param {string} postKey - the key of the post
          * @param {*} next - the function to call with the complete post
          */
-
-    }, {
-        key: "fetchPost",
-        value: function fetchPost(postKey, next) {
+        fetchPost: function fetchPost(postKey, next) {
             return next(this.posts.find(function (post) {
                 return postKey === post.key;
             }));
         }
-    }]);
-    return PostService;
-}();
-
-exports.default = PostService;
+    };
+}
 
 /***/ }),
 /* 189 */
@@ -9203,7 +9192,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function ReceivePostsAction() {
     var RECEIVE_POSTS = 'RECEIVE_POSTS';
 
-    var receivePostsActionCreator = function receivePostsActionCreator(posts) {
+    var actionCreator = function actionCreator(posts) {
         return {
             type: RECEIVE_POSTS,
             posts: posts,
@@ -9215,7 +9204,7 @@ function ReceivePostsAction() {
         type: RECEIVE_POSTS,
 
         dispatchAction: function dispatchAction(dispatch, posts) {
-            dispatch(receivePostsActionCreator(posts));
+            dispatch(actionCreator(posts));
         },
         reducer: function reducer(state, action) {
             return (0, _extends3.default)({}, state, {
@@ -9307,13 +9296,14 @@ var initialState = {
     posts: [], // the list of blog posts
     post: {
         key: undefined,
-        post: [] // TODO - change to content or something
+        content: ['']
     } // the selected post to read in detail
 };
 
 var config = {
     initialState: initialState,
     actionConfigs: [{
+        name: 'ListPosts',
         path: "/",
         driver: _ListPostsAction2.default,
         page: function page(store, history) {
@@ -9322,7 +9312,8 @@ var config = {
     }, {
         driver: _ReceivePostsAction2.default
     }, {
-        path: "/post/:post_id",
+        name: 'ViewPost',
+        path: "/post/:post_key/:post_title",
         driver: _ViewPostAction2.default,
         page: function page(store, history) {
             return React.createElement(_ViewPostPage2.default, { store: store, history: history });
@@ -15087,26 +15078,40 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
           var appConfig = instantiateDrivers(config, new _NullDriver2.default());
           var routes = configureRoutes(appConfig, mountpath);
 
+          var initialState = config.initialState;
+          initialState.routes = configureRoutesInState(routes);
+
           var rootReducer = new _RootReducer2.default(actionConfigs, new _NullDriver2.default());
           var enhancers = initEnhancers(routes);
 
           return {
             appConfig: appConfig,
             routes: routes,
+            initialState: initialState,
             rootReducer: rootReducer,
             enhancers: enhancers
           };
         }
 
         /**
-         * INITIALIISATION FUNCTIONS
+         * INITIALISATION FUNCTIONS
          */
+
+        function configureRoutesInState(routes) {
+          var routesByName = {};
+          routes.forEach(function (route) {
+            routesByName[route.name] = route.route;
+          });
+          return routesByName;
+        }
 
         /**
          * Instantiate the driver for each configuration. If no driver has been specified,
          * this will provide the config with a default driver.
          * 
          * The default driver is usually a null driver - which has no impact.
+         * 
+         * TODO - immutable.js?
          */
         function instantiateDrivers(config, defaultDriverInstance) {
           config.actionConfigs.forEach(function (action) {
@@ -15124,6 +15129,7 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
          * @param {*} mountpath 
          */
         function configureRoutes(config, mountpath) {
+
           var routes = config.actionConfigs.filter(function (actionConfig) {
             return actionConfig.path;
           }) // find configs with a uri defined
@@ -15131,7 +15137,7 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
             return new _RouteConfiguration2.default(mountpath, actionConfig);
           }); // hydrate
           var errorRoute = new _ErrorRoute2.default();
-          routes.push(new _ErrorRoute2.default(mountpath)); // add default error route
+          routes.push(new _ErrorRoute2.default(mountpath)); // TODO add default error route
           return routes;
         }
 
@@ -15334,6 +15340,7 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
           if (!actionConfig) {
             throw new Error('ActionConfig is null or undefined - please check your configuration');
           }
+          var name = actionConfig.name;
           var route = setRoute(mountpath, actionConfig.path);
           var driverInstance = actionConfig.driverInstance;
 
@@ -15342,6 +15349,7 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
           var page = actionConfig.page;
 
           return {
+            name: name,
             route: route,
             page: page,
             driverInstance: driverInstance,
@@ -15553,7 +15561,7 @@ function _interopRequireDefault2(obj) { return obj && obj.__esModule ? obj : { d
           var history = (0, _createBrowserHistory2.default)();
           var config = new _Configuration2.default(mountpath, configuration, history);
 
-          var store = (0, _StoreCreator2.default)(config.rootReducer, initialState, config.enhancers);
+          var store = (0, _StoreCreator2.default)(config.rootReducer, config.initialState, config.enhancers);
 
           var renderComponentByLocation = render(history, config.routes, store);
 
@@ -17190,8 +17198,9 @@ var ListPostsPage = function (_React$Component) {
 
     (0, _createClass3.default)(ListPostsPage, [{
         key: 'viewPost',
-        value: function viewPost(postKey) {
-            this.history.push('/clearblog/post/' + postKey);
+        value: function viewPost(postKey, postTitle) {
+            var base = this.props.viewPostBase;
+            this.history.push((0, _ViewPostAction2.default)().uri(base, postKey, postTitle));
         }
     }, {
         key: 'render',
@@ -17235,7 +17244,8 @@ ListPostsPage.propTypes = {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        viewPostBase: state.routes.ViewPost
     };
 };
 
@@ -21119,7 +21129,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /** 
  */
-function ListPosts(actionUri) {
+function ListPosts(uri) {
     var LIST_POSTS = "LIST_POSTS";
 
     var actionCreator = function actionCreator() {
@@ -21127,8 +21137,6 @@ function ListPosts(actionUri) {
             type: LIST_POSTS
         };
     };
-
-    var uri = actionUri;
 
     var loadPosts = function loadPosts(dispatch) {
         new _PostService2.default().fetchPosts(function (posts) {
