@@ -3,7 +3,7 @@
 export default function ReceivePostsAction() {
     const RECEIVE_POSTS = 'RECEIVE_POSTS';
     
-    const receivePosts = function(posts) {
+    const receivePostsActionCreator = function(posts) {
         return {
             type: RECEIVE_POSTS,
             posts,
@@ -13,8 +13,9 @@ export default function ReceivePostsAction() {
 
     return {
         type: RECEIVE_POSTS,
+        
         dispatchAction(dispatch, posts) {
-            dispatch(receivePosts(posts));
+            dispatch(receivePostsActionCreator(posts));
         },
 
         reducer(state, action) {

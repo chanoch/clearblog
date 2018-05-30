@@ -16,18 +16,24 @@ class ListPostsPage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.history = props.history;
+        this.viewPost = this.viewPost.bind(this);
+    }
+
+    viewPost(postKey) {
+        this.history.push(`/clearblog/post/${postKey}`);
     }
 
     render() {
-        const {posts} = this.props;
+        const {store, posts} = this.props;
         return (
-            <Provider store={this.props.store}>
+            <Provider store={store}>
                 <Layout title="Simple react blog." active={"Blog"} config={config}>
                     <div className="col-12">
                         <h1 className="section__heading">Posts</h1>
                         {posts && posts.map &&
                             posts.map((post) => {
-                                return <PostSummary key={post.key} post={post} handleClick={this.props.viewPost} />
+                                return <PostSummary key={post.key} post={post} handleClick={this.viewPost} />
                             })
                         }
                     </div>
@@ -43,10 +49,10 @@ const mapStateToProps = (state) => {
     }
 };
 
-import {viewPost} from './posts/redux/ViewPost';
+import ViewPostAction from './posts/action/ViewPostAction';
 
 const mapDispatchToProps = (dispatch) => ({
-    viewPost: (postKey) => dispatch(viewPost(postKey)),
+
 });
 
 const ConnectedListPostsPage = 

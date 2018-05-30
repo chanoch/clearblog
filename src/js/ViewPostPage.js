@@ -10,7 +10,7 @@ import config from '../config';
 
 class ViewPostPage extends React.Component {
     static propTypes = {
-        post: PropTypes.string.isRequired,
+        post: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired,
     }
 
@@ -19,12 +19,14 @@ class ViewPostPage extends React.Component {
     }
 
     render() {
-        const {post} = this.props;
+        const {post, store} = this.props;
         return (
-            <Provider store={this.props.store}>
+            <Provider store={store}>
                 <Layout title="Simple react blog." active={"Blog"} config={config}>
                     <div className="col-12">
+                    {post && 
                         <Post postKey={post.key} post={post}/>
+                    }
                     </div>
                 </Layout>
             </Provider>
@@ -33,16 +35,12 @@ class ViewPostPage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        post: state.post
+    return { 
+        post: state.post 
     }
 };
 
-import {viewPost} from './posts/redux/ViewPost';
-
-const mapDispatchToProps = (dispatch) => ({
-    viewPost: (postKey) => dispatch(viewPost(postKey)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 const ConnectedViewPostPage = 
         connect(

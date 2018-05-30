@@ -1,14 +1,35 @@
-#CLEARBLOG TODO
-- exclude react from bundle
-- add view article
+#CLEARBLOG TODO 
+- externalise URL creation for viewPost
+- check todos
+- add in article title to URL
+- check no js version
+- add post metadata
+- change post to content or similar
+- prev next buttons
+- back navigation?
+- auto bump release versions
+- fix uglify
+- restore minified release in simple-react-router
+- convert action configs into classes
+- sort out error page
+- implement error page as express route
+- document SimpleReactRouter
+- ignore control, alt, shift modifiers for clicks in Link
+- define a default render component in case one is not configured
+- implement null driver as 'abstracty' parent class of actions?
+- scan for actions rather than configured? 
+- scan for state rather than configured?
+- externalise index.htm into express so independent of mount point
+- sort out chanoch-com-components in clearblog-components. 
+- is it possible to have a dev entry point versus a prod entry point in libraries?
+- version bumps
+- failed loading
 - unit testing
-- invariant
 - externalise css to a service
 - dates
 - topics
 - add support for code blocks
-externalise index.htm into express so independent of mount point
-fix source map
+fix source map - is this for dev only? Change express to support.
 - test automation (travis?)
 
 - add images
@@ -60,3 +81,5 @@ remove first forward slash if exists to server
 change mount path to be configurable
 - proptypes
 - only deploy mins to npm
+- exclude react from bundle
+- add view article

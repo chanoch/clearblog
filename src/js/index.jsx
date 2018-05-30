@@ -1,4 +1,4 @@
-import SimpleReactRouter from '@chanoch/simple-react-router';
+import simpleReactRouter from '@chanoch/simple-react-router';
 
 /*
         TODO need to update the express mountpath 
@@ -11,6 +11,8 @@ import SimpleReactRouter from '@chanoch/simple-react-router';
 // TODO do we need to rework this router to support menu ids?
 import ListPostsPage from './ListPostsPage';
 import ViewPostPage from './ViewPostPage';
+import Http404Page from './Http404Page';
+
 
 // actions, middleware, and the reducer for each action
 import ListPostsAction from './posts/action/ListPostsAction';
@@ -23,24 +25,29 @@ var mountpath = '/clearblog';
 
 const initialState = {
     posts: [], // the list of blog posts
-    post: {}, // the selected article to read in detail
+    post: {
+        key: undefined,
+        post: [] // TODO - change to content or something
+    }, // the selected post to read in detail
 };
 
 var config = {
     initialState,
     actionConfigs: [{
-        initial: true,
-        route: "/",
+        path: "/",
         driver: ListPostsAction, 
-        page: (store) => <ListPostsPage store={store} />
+        page: (store, history) => <ListPostsPage store={store} history={history}/>,
     },{
         driver: ReceivePostsAction
     },{
-        route: "/post/",
+        path: "/post/:post_id",
         driver: ViewPostAction,
-        page: (store) => <ViewPostPage store={store} />
+        page: (store, history) => <ViewPostPage store={store} history={history}/>
     },{
         driver: ReceivePostAction
+    },{
+        path: "/error",
+        page: (store,history) => <Http404Page store={store} history={history}/>
     }]
 };
 
@@ -48,4 +55,4 @@ var config = {
  * Create store with the redux middleware components which will carry out
  * any mutations required as part of the various actions. 
  */
-new SimpleReactRouter(mountpath, config);
+simpleReactRouter(mountpath, config);

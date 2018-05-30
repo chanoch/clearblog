@@ -1,10 +1,10 @@
 import PostService from '../service/PostService';
 import ReceivePostAction from './ReceivePostAction';
-
-const VIEW_POST = "VIEW_POST";
     
-export default function ViewPost() {
-    const viewPost = function(postKey) {
+export default function ViewPostAction() {
+    const VIEW_POST = "VIEW_POST";
+
+    const actionCreator = function(postKey) {
         return {
             type: VIEW_POST,
             postKey,
@@ -14,21 +14,19 @@ export default function ViewPost() {
     return {
         type: VIEW_POST,
 
-        middleware(path, history) {
-            const localPath = path;
+        middleware() {
             return store => dispatch => action => {
-                console.log(action);
                 dispatch(action);
                 if(action.type===VIEW_POST) {
                     (new PostService()).fetchPost(action.postKey, 
-                        post => (new ReceivePostAction()).dispatchAction(dispatch, post));
-                    history.push(`${localPath}/${action.postKey}`);
+                        post => (new ReceivePostAction()).dispatchAction(dispatch, {post}));
                 }
             }    
         },
 
-        dispatchAction(dispatch, postKey) {
-            dispatch(viewPost(postKey));
+        dispatchAction(dispatch, params) {
+            const postKey = params.post_id;
+            dispatch(actionCreator(postKey));
         },
     }
 }
