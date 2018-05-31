@@ -22,7 +22,7 @@ console.log(`
 -- Mounting clearblog to \"${mountpath}\"`);
 
 var webapp = require('./app');
-var app = (new webapp()).getApp(mountpath);
+var app = webapp(mountpath);
 
 app.set('port', port);
 

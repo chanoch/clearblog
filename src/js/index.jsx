@@ -16,8 +16,11 @@ var mountpath = '/clearblog';
 const initialState = {
     posts: [], // the list of blog posts
     post: {
-        key: undefined,
-        content: ['']
+        key: '',
+        title:'',
+        published:new Date(),
+        content: [''],
+        topics:[],
     }, // the selected post to read in detail
 };
 

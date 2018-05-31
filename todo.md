@@ -1,13 +1,22 @@
 #CLEARBLOG TODO 
-- page title
-- check todos
-- proptypes
-- add link to link href
-- document SimpleReactRouter
-- update npm release of simple router
+## NOW
+- serve blog mountpath from express
+
+## NEXT VERSION
+- sort out chanoch-com-components in clearblog-components. 
 - externalise css to a service
 
+## LATER
+- add link to link href
+
+- page title
+- separate config type for pages and in-page actions
+- proptypes
+- document SimpleReactRouter
+
 - simplify actions to remove redux specifics
+- update npm release of simple router
+
 - currying review
 - immutable.js
 - calendar view of posts
@@ -15,8 +24,6 @@
 - document the idea
 - managing top level navigation to non-blog parts
 - how to support navigation (menu ids?)
-- update express mountpath
-- separate config type for pages and in-page actions
 - check no js version
 - prev next buttons
 - back navigation?
@@ -26,17 +33,15 @@
 - sort out error page
  -- what happens when an error is thrown? (SimpleReactRouter.js)
 - define a default render component in case one is not configured
-- implement null driver as 'abstracty' parent class of actions?
 - scan for actions rather than configured? 
 - scan for state rather than configured?
-- externalise index.htm into express so independent of mount point
-- sort out chanoch-com-components in clearblog-components. 
 - is it possible to have a dev entry point versus a prod entry point in libraries?
 - failed loading
 - unit testing
 - add support for code blocks
 fix source map - is this for dev only? Change express to support.
 - test automation (travis?)
+- check todos
 
 - implement error page as express route
 - ignore control, alt, shift modifiers for clicks in Link
@@ -97,3 +102,4 @@ change mount path to be configurable
 - add post metadata
     - dates 
     - topics
+- externalise index.htm into express so independent of mount point
