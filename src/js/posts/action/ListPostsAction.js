@@ -6,13 +6,13 @@ import ReceivePosts from './ReceivePostsAction';
 export default function ListPosts(uri) {
     const LIST_POSTS = "LIST_POSTS";
     
-    const actionCreator = function() {
+    const actionCreator = () => {
         return {
             type: LIST_POSTS,
         }        
     };
 
-    const loadPosts = function(dispatch) {
+    const loadPosts = dispatch => {
         (new PostService()).fetchPosts(posts => {
             ReceivePosts().dispatchAction(dispatch, posts);
         });

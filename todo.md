@@ -1,19 +1,30 @@
 #CLEARBLOG TODO 
-- add link to link href
-
-- add post metadata
+- page title
 - check todos
+- proptypes
+- add link to link href
+- document SimpleReactRouter
+- update npm release of simple router
+- externalise css to a service
+
+- simplify actions to remove redux specifics
+- currying review
+- immutable.js
+- calendar view of posts
+- topic cloud
+- document the idea
+- managing top level navigation to non-blog parts
+- how to support navigation (menu ids?)
+- update express mountpath
+- separate config type for pages and in-page actions
 - check no js version
 - prev next buttons
 - back navigation?
 - auto bump release versions
 - fix uglify
 - restore minified release in simple-react-router
-- convert action configs into classes
 - sort out error page
-- implement error page as express route
-- document SimpleReactRouter
-- ignore control, alt, shift modifiers for clicks in Link
+ -- what happens when an error is thrown? (SimpleReactRouter.js)
 - define a default render component in case one is not configured
 - implement null driver as 'abstracty' parent class of actions?
 - scan for actions rather than configured? 
@@ -21,16 +32,14 @@
 - externalise index.htm into express so independent of mount point
 - sort out chanoch-com-components in clearblog-components. 
 - is it possible to have a dev entry point versus a prod entry point in libraries?
-- version bumps
 - failed loading
 - unit testing
-- externalise css to a service
-- dates
-- topics
 - add support for code blocks
 fix source map - is this for dev only? Change express to support.
 - test automation (travis?)
 
+- implement error page as express route
+- ignore control, alt, shift modifiers for clicks in Link
 - add images
 - wysiwyg
 - restyling
@@ -40,7 +49,6 @@ fix source map - is this for dev only? Change express to support.
 - move posts to db
  - add configuration for db (user token)
 
-Turn into a class so configuration can be injected
 Add configuration of webapp from server (mountpath)
 
 convert system to automated
@@ -78,6 +86,7 @@ css
 - article_title (+h3)
 remove first forward slash if exists to server
 change mount path to be configurable
+- Turn into a class so configuration can be injected
 - proptypes
 - only deploy mins to npm
 - exclude react from bundle
@@ -85,3 +94,6 @@ change mount path to be configurable
 - add in article title to URL
 - change post to content or similar
 - externalise URL creation for viewPost
+- add post metadata
+    - dates 
+    - topics

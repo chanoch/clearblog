@@ -297,7 +297,7 @@ module.exports = __webpack_require__(194);
 var utils = __webpack_require__(4);
 var bind = __webpack_require__(116);
 var Axios = __webpack_require__(196);
-var defaults = __webpack_require__(62);
+var defaults = __webpack_require__(60);
 
 /**
  * Create an instance of Axios
@@ -382,7 +382,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(62);
+var defaults = __webpack_require__(60);
 var utils = __webpack_require__(4);
 var InterceptorManager = __webpack_require__(206);
 var dispatchRequest = __webpack_require__(207);
@@ -1122,7 +1122,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(4);
 var transformData = __webpack_require__(208);
 var isCancel = __webpack_require__(119);
-var defaults = __webpack_require__(62);
+var defaults = __webpack_require__(60);
 var isAbsoluteURL = __webpack_require__(209);
 var combineURLs = __webpack_require__(210);
 
@@ -1690,7 +1690,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 62:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

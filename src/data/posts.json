@@ -1,9 +1,0 @@
-{
-    "posts": [
-        {"title": "Title1", "leader": "First paragraph", "post": [
-            "Paragraph 1",
-            "Paragraph 2",
-            "Paragraph 3"
-        ]}
-    ]
-}

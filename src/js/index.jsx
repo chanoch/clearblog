@@ -1,26 +1,16 @@
 import simpleReactRouter from '@chanoch/simple-react-router';
 
-/*
-        TODO need to update the express mountpath 
-        TODO need to document the idea
-        TODO how to manage top level navigation to non-blog parts? 
-        TODO need to resolve css - any others?
-        TODO implement with no styling!
-*/
-
-// TODO do we need to rework this router to support menu ids?
 import ListPostsPage from './ListPostsPage';
 import ViewPostPage from './ViewPostPage';
 import Http404Page from './Http404Page';
 
-
 // actions, middleware, and the reducer for each action
 import ListPostsAction from './posts/action/ListPostsAction';
 import ViewPostAction from './posts/action/ViewPostAction';
+
 import ReceivePostsAction from './posts/action/ReceivePostsAction';
 import ReceivePostAction from './posts/action/ReceivePostAction';
 
-console.log(`clearblog/index.jsx:MAKE MOUNTPATH CONFIGURED BY EXPRESS`)
 var mountpath = '/clearblog';
 
 const initialState = {
