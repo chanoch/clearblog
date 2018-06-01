@@ -10,12 +10,12 @@ var index = require('./spa_root_page');
 /**
  * Create a server with the given configuration. 
  * 
- * @param {string} mountpath - the first part of the path after the server name 
  * @param {json} config - json configuration for the blog 
  */
-function server(mountpath, config) {
-
+function server(config) {
     var app = express();
+
+    const mountpath = config.mountpath;
 
     // if(process.env.NODE_ENV!=='production') {
     //     var livereload = require('livereload').createServer({
@@ -30,19 +30,16 @@ function server(mountpath, config) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
 
-    app.use(mountpath, express.static(path.join(__dirname, '../public')));
+    app.use(`${mountpath}`, express.static(path.join(__dirname, '../public')));
 
-    app.use(`${mountpath}/simple-react-router.js.map`, function(req,res) {
-        res.sendFile(path.join(__dirname, '../../node_modules/@chanoch/simple-react-router/dist/simple-react-router.js.map'));
-    });
-
-    app.use(`${mountpath}/config.json`, function(req, res) {
+    app.get('*/config.json', function(req, res) {
         res.writeHead(200, {'Content-Type':'application/json'});
-        res.write(config);
+        res.write(JSON.stringify(config));
         res.end();
     })
 
     indexPage = index(mountpath);
+    app.use(`${mountpath}`, indexPage);
     app.use(`${mountpath}/`, indexPage);
     app.use(`${mountpath}/*.html`, indexPage);
 

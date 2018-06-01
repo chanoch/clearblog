@@ -1,10 +1,11 @@
 #CLEARBLOG TODO 
 ## NOW
 - serve blog mountpath from express
-- externalise blog service to use express
 
 ## NEXT VERSION
 - externalise css to a service
+- externalise config to express
+- externalise blog service to use express
 
 ## LATER
 - add link to link href

@@ -6,12 +6,11 @@ import {Provider, connect } from 'react-redux';
 import {Layout, Divider} from '@chanoch/chanoch-com-components';
 import {PostSummary} from '@chanoch/clearblog-components';
 
-import config from '../config';
-
 class ListPostsPage extends React.Component {
     static propTypes = {
         posts: PropTypes.arrayOf(PropTypes.object).isRequired,
         store: PropTypes.object.isRequired,
+        config: PropTypes.object.isRequired,
     }
 
     constructor(props) {
@@ -26,7 +25,7 @@ class ListPostsPage extends React.Component {
     }
 
     render() {
-        const {store, posts} = this.props;
+        const {store, posts, config} = this.props;
         return (
             <Provider store={store}>
                 <Layout title="Simple react blog." active={"Blog"} config={config}>

@@ -11,43 +11,48 @@ import ViewPostAction from './posts/action/ViewPostAction';
 import ReceivePostsAction from './posts/action/ReceivePostsAction';
 import ReceivePostAction from './posts/action/ReceivePostAction';
 
-var mountpath = '/clearblog';
+import configService from './config'; 
 
-const initialState = {
-    posts: [], // the list of blog posts
-    post: {
-        key: '',
-        title:'',
-        published:new Date(),
-        content: [''],
-        topics:[],
-    }, // the selected post to read in detail
-};
+let mountpath = 'clearblog'; // default mountpath
 
-var config = {
-    initialState,
-    actionConfigs: [{
-        name: 'ListPosts',
-        path: "/",
-        driver: ListPostsAction, 
-        page: (store, history) => <ListPostsPage store={store} history={history}/>,
-    },{
-        driver: ReceivePostsAction
-    },{
-        name: 'ViewPost',
-        path: "/post/:post_key/:post_title",
-        driver: ViewPostAction,
-        page: (store, history) => <ViewPostPage store={store} history={history}/>
-    },{
-        driver: ReceivePostAction
-    },{
-        path: "/error",
-        page: (store,history) => <Http404Page store={store} history={history}/>
-    }]
-};
+configService(window.location.origin, window.location.pathname, (config => {
+    const initialState = {
+        posts: [], // the list of blog posts
+        post: {
+            key: '',
+            title:'',
+            published:new Date(),
+            content: [''],
+            topics:[],
+        }, // the selected post to read in detail
+    };
 
-/**
- * Create store with the redux middleware components which will carry out
- * any mutations required as part of the various actions. 
- */
-simpleReactRouter(mountpath, config);
+    var router_config = {
+        initialState,
+        actionConfigs: [{
+            name: 'ListPosts',
+            path: "/",
+            driver: ListPostsAction, 
+            page: (store, history) => <ListPostsPage store={store} history={history} config={config}/>,
+        },{
+            driver: ReceivePostsAction
+        },{
+            name: 'ViewPost',
+            path: "/post/:post_key/:post_title",
+            driver: ViewPostAction,
+            page: (store, history) => <ViewPostPage store={store} history={history} config={config}/>
+        },{
+            driver: ReceivePostAction
+        },{
+            path: "/error",
+            page: (store,history) => <Http404Page store={store} history={history} config={config}/>
+        }]
+    };
+
+    /**
+     * Create store with the redux middleware components which will carry out
+     * any mutations required as part of the various actions. 
+     */
+    simpleReactRouter(config.mountpath, router_config);
+}));
+

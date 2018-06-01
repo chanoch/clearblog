@@ -10,7 +10,7 @@ var config = {
     "strapline": "Wordpress inspired",
     "headerLinkText": "Linked In",
     "menuItems": [
-        {"key": "home", "link": "/index.html", "linkText": "Home" },
+        {"key": "home", "link": "/", "linkText": "Home" },
     ]
 }
 

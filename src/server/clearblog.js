@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * Module dependencies.
  */
@@ -31,13 +29,14 @@ var Promise = require('bluebird');
  * @param {number} port - the port to mount to, 3005 if not defined
  * @param {string} mountpath - the path to mount the blog to. 
  */
-function clearblog(portParam, mountpathParam) {
+function clearblog(config, portParam, mountpathParam) {
   var port = normalizePort(portParam);
   var mountpath = normalizeMountpath(mountpathParam);
+  config.mountpath = mountpath;
 
   console.log(`
   -- Starting clearblog.
-  -- Mounting clearblog to http://{servername}:${port}${mountpath}/
+  -- Mounting clearblog to http://{servername}:${port}${mountpath}
   
   If you are not sure what the server name is, try one of these:
   
@@ -46,7 +45,7 @@ function clearblog(portParam, mountpathParam) {
   
   `);
 
-  var app = require('./clearblog-server')(mountpath);
+  var app = require('./clearblog-server')(config);
 
   app.set('port', port);
 
@@ -61,7 +60,7 @@ function clearblog(portParam, mountpathParam) {
    */
 
   server.listen(port);
-  server.on('error', onError);
+  server.on('error', onError(port));
   server.on('listening', onListening(server));
 }
 
@@ -88,35 +87,37 @@ function normalizePort(val) {
  * @param {string} mountpath - first part of the uri - e.g. https://test.com/{mountpath}/ 
  */
 function normalizeMountpath(mountpath) {
-  var path = process.env.CLEARBLOG_MOUNTPATH||mountpath||"/clearblog";
-  return path.startsWith("/")?path:`/${path}`; 
+  var path = process.env.CLEARBLOG_MOUNTPATH||mountpath||"clearblog";
+   return path.endsWith('/')?path.substring(0,path.indexOf('/')):path;
 }
 
 /**
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
+function onError(port) {
+  return function(error) {
+    if (error.syscall !== 'listen') {
       throw error;
+    }
+
+    var bind = typeof port === 'string'
+      ? 'Pipe ' + port
+      : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges');
+        process.exit(1);
+        break;
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use');
+        process.exit(1);
+        break;
+      default:
+        throw error;
+    }
   }
 }
 

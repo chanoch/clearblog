@@ -1,8 +1,8 @@
 {
-  "name": "clearblog",
-  "version": "0.1.1",
+  "name": "@chanoch/clearblog",
+  "version": "0.1.2",
   "description": "Simple React Blog Microsite",
-  "main": "dist/server/index.js",
+  "main": "dist/server/clearblog.js",
   "scripts": {
     "dev": "node ./dist/server/index.js",
     "start": "ENV=production node ./dist/server/index.js",
