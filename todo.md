@@ -1,9 +1,9 @@
 #CLEARBLOG TODO 
 ## NOW
 - serve blog mountpath from express
+- externalise blog service to use express
 
 ## NEXT VERSION
-- sort out chanoch-com-components in clearblog-components. 
 - externalise css to a service
 
 ## LATER
@@ -103,3 +103,5 @@ change mount path to be configurable
     - dates 
     - topics
 - externalise index.htm into express so independent of mount point
+- sort out chanoch-com-components in clearblog-components. 
+- convert to component
